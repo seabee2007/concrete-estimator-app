@@ -1,1 +1,16 @@
-
+services:
+  - type: web_service
+    name: concrete-estimator-api
+    env: docker
+    branch: main
+    dockerfilePath: backend/Dockerfile
+    region: oregon
+    plan: starter
+  - type: static_site
+    name: concrete-estimator-web
+    env: node
+    branch: main
+    buildCommand: cd frontend/web && npm install && npm run build
+    publishPath: frontend/web/build
+    region: oregon
+    plan: free
