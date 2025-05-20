@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: concrete-estimator-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: concrete-backend
+  template:
+    metadata:
+      labels:
+        app: concrete-backend
+    spec:
+      containers:
+      - name: api
+        image: your-dockerhub-username/concrete-estimator-backend:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: OPENWEATHER_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openweather-secret
+              key: api-key
